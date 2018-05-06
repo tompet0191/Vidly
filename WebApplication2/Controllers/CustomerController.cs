@@ -64,6 +64,17 @@ namespace Vidly.Controllers
         [Route("Customers/Save")]
         public ActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _ctx.MembershipTypes.Find(x => true).ToList()
+                };
+
+                return View("CustomerForm", viewModel);
+            }
+
             if (customer.CustomerId == 0)
             {
                 var result = _ctx.Customers.Find(x => true).SortByDescending(d => d.CustomerId).Limit(1).First();

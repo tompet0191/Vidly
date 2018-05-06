@@ -12,16 +12,17 @@ namespace Vidly.Models
 
         public int CustomerId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "First name is required")]
         [StringLength(255)]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Last name is required")]
         [StringLength(255)]
         public string LastName { get; set; }
         
         public bool IsSubscribedToNewsLetter { get; set; }
 
+        [Required(ErrorMessage = "Select a membership type")]
         public string MembershipType { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]

@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (Model.Customer != null)
+@if (Model.Customer != null && Model.Customer.CustomerId != 0)
 {
     <h2>Edit Customer</h2> 
     ViewData["Title"] = "Edit";
@@ -21,10 +21,12 @@ else
 <div class="form-group">
     @Html.LabelFor(m => m.Customer.FirstName, "First name")
     @Html.TextBoxFor(m => m.Customer.FirstName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Customer.FirstName)
 </div>
 <div class="form-group">
     @Html.LabelFor(m => m.Customer.LastName, "Last name")
-    @Html.TextBoxFor(m => m.Customer.LastName, new { @class = "form-control" } )
+    @Html.TextBoxFor(m => m.Customer.LastName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Customer.LastName)
 </div>
 <div class="form-group">
     @Html.LabelFor(m => m.Customer.BirthDate, "Date of Birth")
@@ -33,6 +35,7 @@ else
 <div class="form-group">
     @Html.LabelFor(m => m.Customer.MembershipType, "Membership Type")
     @Html.DropDownListFor(m => m.Customer.MembershipType, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" } )
+    @Html.ValidationMessageFor(m => m.Customer.MembershipType)
 </div>
 <div class="checkbox">
     <label>
