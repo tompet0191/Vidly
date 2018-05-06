@@ -9,7 +9,7 @@ namespace Vidly.Controllers
 {
     public class CustomerController : Controller
     {
-        private IDbContext _ctx;
+        private readonly IDbContext _ctx;
 
         public CustomerController(IDbContext ctx)
         {
