@@ -26,6 +26,7 @@ namespace Vidly.Models
         public string MembershipType { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+        [Min18YearsIfAMember]
         public DateTime? BirthDate { get; set; }
     }
 }

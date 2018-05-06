@@ -1,4 +1,5 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using MongoDB.Bson.Serialization.Serializers
 @model Vidly.ViewModels.CustomerFormViewModel
 @{
     ViewData["Title"] = "New";
@@ -7,7 +8,7 @@
 
 @if (Model.Customer != null && Model.Customer.CustomerId != 0)
 {
-    <h2>Edit Customer</h2> 
+    <h2>Edit Customer</h2>
     ViewData["Title"] = "Edit";
 }
 else
@@ -15,37 +16,43 @@ else
     <h2>New Customer</h2>
 }
 
+
 @using (Html.BeginForm("Save", "Customer"))
 {
 
-<div class="form-group">
-    @Html.LabelFor(m => m.Customer.FirstName, "First name")
-    @Html.TextBoxFor(m => m.Customer.FirstName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.Customer.FirstName)
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.Customer.LastName, "Last name")
-    @Html.TextBoxFor(m => m.Customer.LastName, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.Customer.LastName)
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.Customer.BirthDate, "Date of Birth")
-    @Html.TextBoxFor(m => m.Customer.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" } )
-</div>
-<div class="form-group">
-    @Html.LabelFor(m => m.Customer.MembershipType, "Membership Type")
-    @Html.DropDownListFor(m => m.Customer.MembershipType, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" } )
-    @Html.ValidationMessageFor(m => m.Customer.MembershipType)
-</div>
-<div class="checkbox">
-    <label>
-        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsLetter) Subscribed to Newsletter?
-    </label>
-</div>
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.FirstName, "First name")
+        @Html.TextBoxFor(m => m.Customer.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.LastName, "Last name")
+        @Html.TextBoxFor(m => m.Customer.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.LastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipType, "Membership Type")
+        @Html.DropDownListFor(m => m.Customer.MembershipType, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.MembershipType)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.BirthDate, "Date of Birth")
+        @Html.TextBoxFor(m => m.Customer.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.BirthDate)
+    </div>
 
-@Html.HiddenFor(m => m.Customer.CustomerId)
-<button type="submit" class="btn-primary">Save</button>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsLetter) Subscribed to Newsletter?
+        </label>
+    </div>
+
+    @Html.HiddenFor(m => m.Customer.CustomerId)
+    <button type="submit" class="btn-primary">Save</button>
 }
 
-
-
+@section Scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

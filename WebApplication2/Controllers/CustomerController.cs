@@ -52,12 +52,15 @@ namespace Vidly.Controllers
         [Route("Customers/New")]
         public ActionResult New()
         {
-            var newCustomerViewModel = new CustomerFormViewModel();
+            
             var memberships = _ctx.MembershipTypes;
+            var viewModel = new CustomerFormViewModel()
+            {
+                Customer = new Customer(),
+                MembershipTypes = memberships.Find(x => true).ToList()
+            };
 
-            newCustomerViewModel.MembershipTypes = memberships.Find(x => true).ToList();
-
-            return View("CustomerForm", newCustomerViewModel);
+            return View("CustomerForm", viewModel);
         }
 
         [HttpPost]
