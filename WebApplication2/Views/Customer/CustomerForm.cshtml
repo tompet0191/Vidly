@@ -49,6 +49,7 @@ else
     </div>
 
     @Html.HiddenFor(m => m.Customer.CustomerId)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn-primary">Save</button>
 }
 
