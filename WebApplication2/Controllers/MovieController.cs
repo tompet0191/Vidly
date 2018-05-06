@@ -53,19 +53,34 @@ namespace Vidly.Controllers
         [Route("Movies/New")]
         public ActionResult New()
         {
-            var viewModel = new MovieFormViewModel();
             var genres = _ctx.Genres;
 
-            viewModel.Genres = genres.Find(x => true).ToList();
+            var viewModel = new MovieFormViewModel
+            {
+                Movie = new Movie(),
+                Genres = genres.Find(x => true).ToList()
+            };
 
             return View("MovieForm", viewModel);
 
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("Movies/Save")]
         public IActionResult Save(Movie movie)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel()
+                {
+                    Movie = movie,
+                    Genres = _ctx.Genres.Find(x => true).ToList()
+                };
+
+                return View("MovieForm", viewModel);
+            }
+
             if(movie.MovieId == 0)
             {
                 //find highest movieid
