@@ -11,23 +11,24 @@
 }
 else
 {
+    @Html.ActionLink("New Customer", "New", "Customer", null, new { @class = "btn btn-primary" })
     <table class="table table-bordered table-hover">
         <thead class="thead-default">
-        <tr>
-            <th>Customer name</th>
-            <th>Membership type</th>
-        </tr>
+            <tr>
+                <th>Customer name</th>
+                <th>Membership type</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var customer in Model.Customers)
-        {
-            var membership = Model.MembershipTypes.Find(x => x.Id == @customer.MembershipType);
-            <tr>
-                @*<th scope="row"><a asp-area="" asp-controller="Customer" asp-action="Details" asp-route-id="@customer.Id">@customer.FirstName @customer.LastName</a></th>*@
-                <td scope="row">@Html.ActionLink(@customer.FirstName + " " + @customer.LastName, "Edit", "Customer", new {id = @customer.CustomerId}, null)</td>
-                <td>@membership.Name</td>
-            </tr>
-        }
+            @foreach (var customer in Model.Customers)
+            {
+                var membership = Model.MembershipTypes.Find(x => x.Id == @customer.MembershipType);
+                <tr>
+                    @*<th scope="row"><a asp-area="" asp-controller="Customer" asp-action="Details" asp-route-id="@customer.Id">@customer.FirstName @customer.LastName</a></th>*@
+                    <td scope="row">@Html.ActionLink(@customer.FirstName + " " + @customer.LastName, "Edit", "Customer", new { id = @customer.CustomerId }, null)</td>
+                    <td>@membership.Name</td>
+                </tr>
+            }
         </tbody>
     </table>
 }
