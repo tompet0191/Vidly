@@ -21,9 +21,10 @@ namespace Vidly.Models
         public string Genre { get; set; }
 
         [Required]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime ReleaseDate { get; set; }
 
-        [Required]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime AddedDate { get; set; }
 
         [Required]

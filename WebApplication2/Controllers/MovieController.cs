@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Vidly.mongoDB;
+using Vidly.Models;
 using Vidly.ViewModels;
 
 namespace Vidly.Controllers
@@ -59,6 +60,19 @@ namespace Vidly.Controllers
 
             return View("New", viewModel);
 
+        }
+
+        public IActionResult Create(Movie movie)
+        {
+            //find highest movieid
+            var result = _ctx.Movies.Find(x => true).SortByDescending(d => d.MovieId).Limit(1).First();
+
+            movie.MovieId = result.MovieId + 1;
+            movie.AddedDate = DateTime.Now;
+
+            _ctx.Movies.InsertOne(movie);
+
+            return RedirectToAction("Index", "Movies");
         }
     }
 }
