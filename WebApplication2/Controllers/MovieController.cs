@@ -57,7 +57,6 @@ namespace Vidly.Controllers
 
             var viewModel = new MovieFormViewModel
             {
-                Movie = new Movie(),
                 Genres = genres.Find(x => true).ToList()
             };
 
@@ -72,9 +71,8 @@ namespace Vidly.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var viewModel = new MovieFormViewModel()
+                var viewModel = new MovieFormViewModel(movie)
                 {
-                    Movie = movie,
                     Genres = _ctx.Genres.Find(x => true).ToList()
                 };
 
@@ -112,9 +110,8 @@ namespace Vidly.Controllers
             if (movie == null)
                 return NotFound();
 
-            var viewModel = new MovieFormViewModel()
+            var viewModel = new MovieFormViewModel(movie)
             {
-                Movie = movie,
                 Genres = _ctx.Genres.Find(x => true).ToList()
             };
 
