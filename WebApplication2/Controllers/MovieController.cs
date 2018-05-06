@@ -48,5 +48,17 @@ namespace Vidly.Controllers
 
             return View(movieViewModel);
         }
+
+        [Route("Movies/New")]
+        public ActionResult New()
+        {
+            var viewModel = new NewMovieViewModel();
+            var genres = _ctx.Genres;
+
+            viewModel.Genres = genres.Find(x => true).ToList();
+
+            return View("New", viewModel);
+
+        }
     }
 }
