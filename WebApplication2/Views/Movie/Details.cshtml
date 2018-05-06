@@ -1,0 +1,20 @@
+@using System.Globalization
+@using System.Linq
+@using Vidly.Models
+@model Vidly.ViewModels.MovieViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ Movie movie = @Model.Movies.First(); }
+<h2>@movie.Name</h2>
+
+@{ var genre = Model.Genres.Find(x => x.Id == @movie.Genre); }
+
+<ul>
+    <li>Genre: @movie.Genre</li>
+    <li>Release Date: @movie.ReleaseDate.DayOfWeek.ToString(), @movie.ReleaseDate.Date.ToString("MMMM d, yyyy", new CultureInfo("en-US"))</li>
+    <li>Date added: @movie.AddedDate.DayOfWeek.ToString(), @movie.AddedDate.Date.ToString("MMMM d, yyyy", new CultureInfo("en-US"))</li>
+    <li>Number in Stock: @movie.Available</li>
+</ul>

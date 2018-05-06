@@ -1,0 +1,18 @@
+@using System.Linq
+@using Vidly.Models
+@model Vidly.ViewModels.CustomerViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ Customer customer = @Model.Customers.First(); }
+<h2>@customer.FirstName @customer.LastName </h2>
+
+@{ var membership = Model.MembershipTypes.Find(x => x.Id == @customer.MembershipType); }
+
+<ul>
+    <li>Membership Type: @membership.Name </li>
+    @{ if (@customer.BirthDate.HasValue)
+        {<li>Birthdate: @customer.BirthDate.Value.Date.ToString("yyyy-MM-dd")</li>} }
+</ul>

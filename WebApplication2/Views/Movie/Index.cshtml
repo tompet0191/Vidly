@@ -1,0 +1,41 @@
+@model Vidly.ViewModels.MovieViewModel
+@{
+    ViewData["Title"] = "Movies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+
+
+
+@if (@Model.Movies.Count == 0)
+{
+    <p>We have no movies to show yet.</p>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model.Movies)
+            {
+                var genre = Model.Genres.Find(x => x.Id == @movie.Genre); 
+                <tr>
+                    <td scope="row">@movie.MovieId</td>
+
+                    <td>@Html.ActionLink(@movie.Name, "Details", "Movie", new { id = @movie.MovieId }, null)</td>
+                    <td>@genre.Name</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
