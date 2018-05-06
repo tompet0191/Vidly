@@ -58,7 +58,7 @@ namespace Vidly.Controllers
 
             viewModel.Genres = genres.Find(x => true).ToList();
 
-            return View("New", viewModel);
+            return View("MovieForm", viewModel);
 
         }
 
@@ -66,13 +66,25 @@ namespace Vidly.Controllers
         [Route("Movies/Save")]
         public IActionResult Save(Movie movie)
         {
-            //find highest movieid
-            var result = _ctx.Movies.Find(x => true).SortByDescending(d => d.MovieId).Limit(1).First();
+            if(movie.MovieId == 0)
+            {
+                //find highest movieid
+                var result = _ctx.Movies.Find(x => true).SortByDescending(d => d.MovieId).Limit(1).First();
 
-            movie.MovieId = result.MovieId + 1;
-            movie.AddedDate = DateTime.Now;
+                movie.MovieId = result.MovieId + 1;
+                movie.AddedDate = DateTime.Now;
 
-            _ctx.Movies.InsertOne(movie);
+                _ctx.Movies.InsertOneAsync(movie);
+            }
+            else
+            {
+                var update = Builders<Movie>.Update.Set(x => x.Name, movie.Name)
+                    .Set(x => x.ReleaseDate, movie.ReleaseDate)
+                    .Set(x => x.Genre, movie.Genre)
+                    .Set(x => x.Available, movie.Available);
+
+                _ctx.Movies.UpdateOneAsync(x => x.MovieId == movie.MovieId, update);
+            }
 
             return RedirectToAction("Index", "Movies");
         }

@@ -69,12 +69,12 @@ namespace Vidly.Controllers
                 var result = _ctx.Customers.Find(x => true).SortByDescending(d => d.CustomerId).Limit(1).First();
 
                 customer.CustomerId = result.CustomerId + 1;
-                _ctx.Customers.InsertOne(customer);
+                _ctx.Customers.InsertOneAsync(customer);
             }
             else
             {
                 var update = Builders<Customer>.Update.Set(x => x.BirthDate, customer.BirthDate).Set(x => x.FirstName, customer.FirstName).Set(x => x.LastName, customer.LastName).Set(x => x.IsSubscribedToNewsLetter, customer.IsSubscribedToNewsLetter).Set(x => x.MembershipType, customer.MembershipType);
-                _ctx.Customers.UpdateOne(x => x.CustomerId == customer.CustomerId, update);
+                _ctx.Customers.UpdateOneAsync(x => x.CustomerId == customer.CustomerId, update);
             }
 
             return RedirectToAction("Index", "Customers");

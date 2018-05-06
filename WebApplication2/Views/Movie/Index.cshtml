@@ -30,7 +30,7 @@ else
                 <tr>
                     <td scope="row">@movie.MovieId</td>
 
-                    <td>@Html.ActionLink(@movie.Name, "Details", "Movie", new { id = @movie.MovieId }, null)</td>
+                    <td>@Html.ActionLink(@movie.Name, "Edit", "Movie", new { id = @movie.MovieId }, null)</td>
                     <td>@genre.Name</td>
                 </tr>
             }
