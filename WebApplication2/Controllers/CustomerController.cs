@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Vidly.ViewModels;
@@ -66,7 +67,7 @@ namespace Vidly.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Customers/Save")]
-        public ActionResult Save(Customer customer)
+        public async Task<ActionResult> Save(Customer customer)
         {
             if (!ModelState.IsValid)
             {
@@ -84,12 +85,12 @@ namespace Vidly.Controllers
                 var result = _ctx.Customers.Find(x => true).SortByDescending(d => d.CustomerId).Limit(1).First();
 
                 customer.CustomerId = result.CustomerId + 1;
-                _ctx.Customers.InsertOneAsync(customer);
+                await _ctx.Customers.InsertOneAsync(customer);
             }
             else
             {
                 var update = Builders<Customer>.Update.Set(x => x.BirthDate, customer.BirthDate).Set(x => x.FirstName, customer.FirstName).Set(x => x.LastName, customer.LastName).Set(x => x.IsSubscribedToNewsLetter, customer.IsSubscribedToNewsLetter).Set(x => x.MembershipType, customer.MembershipType);
-                _ctx.Customers.UpdateOneAsync(x => x.CustomerId == customer.CustomerId, update);
+                await _ctx.Customers.UpdateOneAsync(x => x.CustomerId == customer.CustomerId, update);
             }
 
             return RedirectToAction("Index", "Customers");

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Vidly.mongoDB;
@@ -67,7 +68,7 @@ namespace Vidly.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Movies/Save")]
-        public IActionResult Save(Movie movie)
+        public async Task<ActionResult> Save(Movie movie)
         {
             if (!ModelState.IsValid)
             {
@@ -87,7 +88,7 @@ namespace Vidly.Controllers
                 movie.MovieId = result.MovieId + 1;
                 movie.AddedDate = DateTime.Now;
 
-                _ctx.Movies.InsertOneAsync(movie);
+                await _ctx.Movies.InsertOneAsync(movie);
             }
             else
             {
@@ -96,14 +97,14 @@ namespace Vidly.Controllers
                     .Set(x => x.Genre, movie.Genre)
                     .Set(x => x.Available, movie.Available);
 
-                _ctx.Movies.UpdateOneAsync(x => x.MovieId == movie.MovieId, update);
+                await _ctx.Movies.UpdateOneAsync(x => x.MovieId == movie.MovieId, update);
             }
 
             return RedirectToAction("Index", "Movies");
         }
 
         [Route("Movies/Edit/{id:int}")]
-        public IActionResult Edit(int id)
+        public ActionResult Edit(int id)
         {
             var movie = _ctx.Movies.Find(x => x.MovieId == id).First();
 
