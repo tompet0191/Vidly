@@ -10,6 +10,7 @@ namespace Vidly
         {
             Mapper.CreateMap<Customer, CustomerDto>().ReverseMap();
             Mapper.CreateMap<Movie, MovieDto>().ReverseMap();
+            Mapper.CreateMap<MembershipType, MembershipTypeDto>().ReverseMap();
         }
     }
 }

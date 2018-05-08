@@ -21,6 +21,8 @@ namespace Vidly.Dtos
         [Required(ErrorMessage = "Select a membership type")]
         public string MembershipType { get; set; }
 
+        public MembershipTypeDto MembershipTypeDto { get; set; }
+
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         //[Min18YearsIfAMember]
         public DateTime? BirthDate { get; set; }

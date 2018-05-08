@@ -26,7 +26,20 @@ namespace Vidly.Controllers.Api
         [Route("api/Customers")]
         public IEnumerable<CustomerDto> GetCustomers()
         {
-            return _ctx.Customers.Find(x => true).ToList().Select(Mapper.Map<Customer, CustomerDto>);
+            var customers =
+                Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerDto>>(_ctx.Customers.Find(x => true).ToList());
+
+            foreach (var customer in customers)
+            {
+                customer.MembershipTypeDto = new MembershipTypeDto
+                {
+                    MembershipType = customer.MembershipType,
+                    Name = _ctx.MembershipTypes.Find(x => x.Id == customer.MembershipType).SingleOrDefault().Name
+                };
+            }
+
+            return customers;
+            //return _ctx.Customers.Find(x => true).ToList().Select(Mapper.Map<Customer, CustomerDto>);
         }
 
         //GET /api/Customers/1
