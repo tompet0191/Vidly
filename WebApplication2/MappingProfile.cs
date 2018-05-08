@@ -9,7 +9,7 @@ namespace Vidly
         public MappingProfile()
         {
             Mapper.CreateMap<Customer, CustomerDto>().ReverseMap();
-            //Mapper.
+            Mapper.CreateMap<Movie, MovieDto>().ReverseMap();
         }
     }
 }

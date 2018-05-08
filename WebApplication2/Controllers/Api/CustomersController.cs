@@ -22,6 +22,7 @@ namespace Vidly.Controllers.Api
         }
 
         //GET /api/Customers
+        [HttpGet]
         [Route("api/Customers")]
         public IEnumerable<CustomerDto> GetCustomers()
         {
@@ -29,6 +30,7 @@ namespace Vidly.Controllers.Api
         }
 
         //GET /api/Customers/1
+        [HttpGet]
         [Route("api/Customers/{id:int}")]
         public IActionResult GetCustomer(int id)
         {
