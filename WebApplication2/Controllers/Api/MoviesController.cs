@@ -31,7 +31,7 @@ namespace Vidly.Controllers.Api
         }
 
         // GET: api/Movies/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{Id}", Name = "Get")]
         public async Task<IActionResult> GetMovie(int id)
         {
             var movie = await _ctx.Movies.Find(x => x.MovieId == id).SingleOrDefaultAsync();
@@ -62,7 +62,7 @@ namespace Vidly.Controllers.Api
         }
         
         // PUT: api/Movies/5
-        [HttpPut("{id}")]
+        [HttpPut("{Id}")]
         public async Task<IActionResult> UpdateMovie(int id, [FromBody] MovieDto movieDto)
         {
             if (!ModelState.IsValid)
@@ -85,7 +85,7 @@ namespace Vidly.Controllers.Api
         }
         
         // DELETE: api/Movies/1
-        [HttpDelete("{id}")]
+        [HttpDelete("{Id}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
             var movieInDb = await _ctx.Movies.Find(x => x.MovieId == id).SingleOrDefaultAsync();

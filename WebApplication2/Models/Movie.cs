@@ -8,7 +8,7 @@ namespace Vidly.Models
     [BsonIgnoreExtraElements]
     public class Movie
     {
-        public ObjectId id { get; set; }
+        public ObjectId Id { get; set; }
 
         public int MovieId { get; set; }
 

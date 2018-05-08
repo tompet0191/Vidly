@@ -26,7 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Api\" />
-    <Folder Include="Views\Deck\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\images\banner1.svg" />

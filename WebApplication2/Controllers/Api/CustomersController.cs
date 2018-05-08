@@ -31,7 +31,7 @@ namespace Vidly.Controllers.Api
 
         //GET /api/Customers/1
         [HttpGet]
-        [Route("api/Customers/{id:int}")]
+        [Route("api/Customers/{Id:int}")]
         public IActionResult GetCustomer(int id)
         {
             var customer = _ctx.Customers.Find(x => x.CustomerId == id);
@@ -62,7 +62,7 @@ namespace Vidly.Controllers.Api
 
         //PUT /api/Customers/1
         [HttpPut]
-        [Route("api/Customers/{id:int}")]
+        [Route("api/Customers/{Id:int}")]
         public async Task<IActionResult> UpdateCustomer(int id, [FromBody] CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
@@ -86,7 +86,7 @@ namespace Vidly.Controllers.Api
 
         // DELETE /api/Customers/1
         [HttpDelete]
-        [Route("api/Customers/{id:int}")]
+        [Route("api/Customers/{Id:int}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {
             var customerInDb = _ctx.Customers.Find(x => x.CustomerId == id);

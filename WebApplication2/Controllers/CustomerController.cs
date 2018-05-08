@@ -29,7 +29,7 @@ namespace Vidly.Controllers
             return View(customerViewModel);
         }
 
-        [Route("Customers/Details/{id:int}")]
+        [Route("Customers/Details/{Id:int}")]
         public ActionResult Details(int id)
         {
             var customerViewModel = new CustomerViewModel();
@@ -96,7 +96,7 @@ namespace Vidly.Controllers
             return RedirectToAction("Index", "Customers");
         }
         
-        [Route("Customers/Edit/{id:int}")]
+        [Route("Customers/Edit/{Id:int}")]
         public IActionResult Edit(int id)
         {
             var customer = _ctx.Customers.Find(x => x.CustomerId == id).First();

@@ -30,7 +30,7 @@ namespace Vidly.Controllers
             return View(movieViewModel);
         }
 
-        [Route("Movies/Details/{id:int}")]
+        [Route("Movies/Details/{Id:int}")]
         public ActionResult Details(int id)
         {
             var movieViewModel = new MovieViewModel();
@@ -103,7 +103,7 @@ namespace Vidly.Controllers
             return RedirectToAction("Index", "Movies");
         }
 
-        [Route("Movies/Edit/{id:int}")]
+        [Route("Movies/Edit/{Id:int}")]
         public ActionResult Edit(int id)
         {
             var movie = _ctx.Movies.Find(x => x.MovieId == id).First();
