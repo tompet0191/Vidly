@@ -20,14 +20,7 @@ namespace Vidly.Controllers
         [Route("Movies")]
         public ActionResult Index()
         {
-            var movieViewModel = new MovieViewModel();
-            var movies = _ctx.Movies;
-            var genres = _ctx.Genres;
-            
-            movieViewModel.Movies = movies.Find(x => true).ToList();
-            movieViewModel.Genres = genres.Find(x => true).ToList();
-
-            return View(movieViewModel);
+            return View();
         }
 
         [Route("Movies/Details/{Id:int}")]
