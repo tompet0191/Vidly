@@ -20,13 +20,7 @@ namespace Vidly.Controllers
         [Route("Customers")]
         public ActionResult Index()
         {
-            var customerViewModel = new CustomerViewModel();
-            var customers = _ctx.Customers;
-            var memberships = _ctx.MembershipTypes;
-
-            customerViewModel.Customers = customers.Find(x => true).ToList(); //Find all customers and show them
-            customerViewModel.MembershipTypes = memberships.Find(x => true).ToList(); //Find all movies and show them
-            return View(customerViewModel);
+            return View();
         }
 
         [Route("Customers/Details/{Id:int}")]

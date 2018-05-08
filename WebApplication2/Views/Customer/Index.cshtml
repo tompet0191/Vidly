@@ -5,37 +5,20 @@
 }
 
 <h2>Customers</h2>
-@if (@Model.Customers.Count == 0)
-{
-    <p>We have no customers yet.</p>
-}
-else
-{
-    @Html.ActionLink("New Customer", "New", "Customer", null, new { @class = "btn btn-primary", @style = "margin-bottom:10px" })
-    <table id="customers" class="table table-bordered table-hover">
-        <thead class="thead-default">
-            <tr>
-                <th>Customer name</th>
-                <th>Membership type</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in Model.Customers)
-            {
-                var membership = Model.MembershipTypes.Find(x => x.Id == @customer.MembershipType);
-                <tr>
-                    @*<th scope="row"><a asp-area="" asp-controller="Customer" asp-action="Details" asp-route-Id="@customer.Id">@customer.FirstName @customer.LastName</a></th>*@
-                    <td scope="row">@Html.ActionLink(@customer.FirstName + " " + @customer.LastName, "Edit", "Customer", new { id = @customer.CustomerId }, null)</td>
-                    <td>@membership.Name</td>
-                    <td>
-                        <button data-customer-Id="@customer.CustomerId" class="btn-link js-delete">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+
+@Html.ActionLink("New Customer", "New", "Customer", null, new { @class = "btn btn-primary", @style = "margin-bottom:10px" })
+<table id="customers" class="table table-bordered table-hover">
+    <thead class="thead-default">
+    <tr>
+        <th>Customer name</th>
+        <th>Membership type</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
 @section Scripts
 {
     <script>
