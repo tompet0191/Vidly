@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,7 +32,6 @@ namespace Vidly
             services.AddMvc();
             services.AddTransient<IDbContext, DbContext>();
 
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,12 +54,6 @@ namespace Vidly
 
             app.UseMvc(routes =>
             {
-                //routes.MapRoute(
-                //    name: "decksByClass",
-                //    template: "Deck/Class/{ClassId:int}",
-                //    defaults: new { controller = "Deck", action = "decksByClass" },
-                //    constraints: new { ClassId = @"\d{1}" });
-
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{Id?}");
