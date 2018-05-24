@@ -25,9 +25,6 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\Api\" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="wwwroot\images\banner1.svg" />
     <None Include="wwwroot\images\banner2.svg" />
     <None Include="wwwroot\images\banner3.svg" />

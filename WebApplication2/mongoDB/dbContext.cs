@@ -20,6 +20,8 @@ namespace Vidly.mongoDB
         public IMongoCollection<MembershipType> MembershipTypes => Db.GetCollection<MembershipType>("MembershipTypes");
 
         public IMongoCollection<Genre> Genres => Db.GetCollection<Genre>("Genres");
+
+        public IMongoCollection<Rental> Rentals => Db.GetCollection<Rental>("Rentals");
     }
 
     public interface IDbContext
@@ -28,5 +30,6 @@ namespace Vidly.mongoDB
         IMongoCollection<Customer> Customers { get; }
         IMongoCollection<MembershipType> MembershipTypes { get; }
         IMongoCollection<Genre> Genres { get; }
+        IMongoCollection<Rental> Rentals { get; }
     }
 }
