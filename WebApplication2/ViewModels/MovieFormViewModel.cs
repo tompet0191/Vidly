@@ -29,7 +29,7 @@ namespace Vidly.ViewModels
 
         [Required(ErrorMessage = "The number in stock is required")]
         [Range(1, 20, ErrorMessage = "The number in stock must be between 1 and 20")]
-        public int? Available { get; set; }
+        public int? NumberInStock { get; set; }
 
         public string Title => (MovieId != 0) ? "Edit Movie" : "New Movie";
 
@@ -43,7 +43,7 @@ namespace Vidly.ViewModels
             MovieId = movie.MovieId;
             Name = movie.Name;
             ReleaseDate = movie.ReleaseDate;
-            Available = movie.Available;
+            NumberInStock = movie.NumberInStock;
             Genre = movie.Genre;
         }
     }

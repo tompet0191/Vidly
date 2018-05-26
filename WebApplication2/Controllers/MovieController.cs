@@ -88,7 +88,7 @@ namespace Vidly.Controllers
                 var update = Builders<Movie>.Update.Set(x => x.Name, movie.Name)
                     .Set(x => x.ReleaseDate, movie.ReleaseDate)
                     .Set(x => x.Genre, movie.Genre)
-                    .Set(x => x.Available, movie.Available);
+                    .Set(x => x.NumberInStock, movie.NumberInStock);
 
                 await _ctx.Movies.UpdateOneAsync(x => x.MovieId == movie.MovieId, update);
             }

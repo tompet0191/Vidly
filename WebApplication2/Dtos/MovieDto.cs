@@ -28,6 +28,6 @@ namespace Vidly.Dtos
 
         [Required(ErrorMessage = "The number in stock is required")]
         [Range(1, 20, ErrorMessage = "The number in stock must be between 1 and 20")]
-        public int Available { get; set; }
+        public int NumberInStock { get; set; }
     }
 }

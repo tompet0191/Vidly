@@ -75,7 +75,7 @@ namespace Vidly.Controllers.Api
 
             var update = Builders<Movie>.Update.Set(x => x.Name, movieDto.Name)
                 .Set(x => x.Genre, movieDto.Genre).Set(x => x.ReleaseDate, movieDto.ReleaseDate)
-                .Set(x => x.Available, movieDto.Available);
+                .Set(x => x.NumberInStock, movieDto.NumberInStock);
 
             await _ctx.Movies.UpdateOneAsync(x => x.MovieId == id, update);
 

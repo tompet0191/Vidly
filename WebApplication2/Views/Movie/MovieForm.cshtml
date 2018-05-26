@@ -25,9 +25,9 @@
         @Html.ValidationMessageFor(m => m.Genre)
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Available, "Number in Stock")
-        @Html.TextBoxFor(m => m.Available, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Available)
+        @Html.LabelFor(m => m.NumberInStock, "Number in Stock")
+        @Html.TextBoxFor(m => m.NumberInStock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.NumberInStock)
     </div>
 
     @Html.HiddenFor(m => m.MovieId)
