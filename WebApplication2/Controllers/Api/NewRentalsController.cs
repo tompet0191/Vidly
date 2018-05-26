@@ -27,15 +27,22 @@ namespace Vidly.Controllers.Api
         public IActionResult NewRental([FromBody] NewRentalDto newRentalDto)
         {
             if (!ModelState.IsValid)
-                return BadRequest();
+                return BadRequest("Model state is not valid");
 
-            var maxRentalId = _ctx.Rentals.Find(x => true).SortByDescending(d => d.RentalId).Limit(1).First().RentalId;
+            var rentalWithMaxRentalId = _ctx.Rentals.Find(x => true).SortByDescending(d => d.RentalId).Limit(1).FirstOrDefault();
+            var maxRentalId = (rentalWithMaxRentalId == null) ? 0 : rentalWithMaxRentalId.RentalId;
+
             var customer = _ctx.Customers.Find(x => x.CustomerId == newRentalDto.CustomerId).Single();
 
             var movies = _ctx.Movies.Find(x => newRentalDto.MovieIds.Contains(x.MovieId)).ToList(); //select * from table where movieid in (1,2,3)
 
             foreach (var movie in movies)
             {
+                if(movie.Available == 0)
+                    return BadRequest("Movie is not available.");
+
+                movie.Available--;
+
                 var rentalDto = new RentalDto
                 {
                     RentalId = ++maxRentalId,
@@ -49,7 +56,11 @@ namespace Vidly.Controllers.Api
                 rental.CustomerObjectId = rental.Customer.Id = customer.Id;
                 rental.MovieObjectId = rental.Movie.Id = movie.Id;
 
+                var update = Builders<Movie>.Update.Set(x => x.Available, movie.Available);
+
+                _ctx.Movies.UpdateOne(x => x.MovieId == movie.MovieId, update);
                 _ctx.Rentals.InsertOne(rental);
+                
             }
  
             return Ok();

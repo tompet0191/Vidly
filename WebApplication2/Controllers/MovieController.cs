@@ -80,6 +80,7 @@ namespace Vidly.Controllers
 
                 movie.MovieId = result.MovieId + 1;
                 movie.AddedDate = DateTime.Now;
+                movie.Available = movie.NumberInStock;
 
                 await _ctx.Movies.InsertOneAsync(movie);
             }
@@ -88,7 +89,8 @@ namespace Vidly.Controllers
                 var update = Builders<Movie>.Update.Set(x => x.Name, movie.Name)
                     .Set(x => x.ReleaseDate, movie.ReleaseDate)
                     .Set(x => x.Genre, movie.Genre)
-                    .Set(x => x.NumberInStock, movie.NumberInStock);
+                    .Set(x => x.NumberInStock, movie.NumberInStock)
+                    .Set(x => x.Available, movie.NumberInStock);
 
                 await _ctx.Movies.UpdateOneAsync(x => x.MovieId == movie.MovieId, update);
             }

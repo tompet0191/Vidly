@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,10 +25,21 @@ namespace Vidly.Controllers.Api
         //GET /api/Customers
         [HttpGet]
         [Route("api/Customers")]
-        public IEnumerable<CustomerDto> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers(string query = null)
         {
+            var filter = Builders<Customer>.Filter.Empty;
+            if (!string.IsNullOrWhiteSpace(query))
+            {
+                filter = Builders<Customer>.Filter.Or(
+                    Builders<Customer>.Filter.Where(c => c.FirstName.Contains(query)),
+                    Builders<Customer>.Filter.Where(c => c.LastName.Contains(query))
+                );
+            }
+            
+            var customersQuery = _ctx.Customers.Find(filter).ToList();
+
             var customers =
-                Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerDto>>(_ctx.Customers.Find(x => true).ToList());
+                Mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerDto>>(customersQuery);
 
             foreach (var customer in customers)
             {
@@ -39,7 +51,6 @@ namespace Vidly.Controllers.Api
             }
 
             return customers;
-            //return _ctx.Customers.Find(x => true).ToList().Select(Mapper.Map<Customer, CustomerDto>);
         }
 
         //GET /api/Customers/1
