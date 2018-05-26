@@ -32,28 +32,26 @@ namespace Vidly.Controllers.Api
             var maxRentalId = _ctx.Rentals.Find(x => true).SortByDescending(d => d.RentalId).Limit(1).First().RentalId;
             var customer = _ctx.Customers.Find(x => x.CustomerId == newRentalDto.CustomerId).Single();
 
-            //var movies = _ctx.Movies.Find(x => newRentalDto.MovieIds.Contains(x.MovieId)); //select * from table where movieid in (1,2,3)
+            var movies = _ctx.Movies.Find(x => newRentalDto.MovieIds.Contains(x.MovieId)).ToList(); //select * from table where movieid in (1,2,3)
 
-            foreach( var m in newRentalDto.MovieIds)
+            foreach (var movie in movies)
             {
-                var movie = _ctx.Movies.Find(x => x.MovieId == m).SingleOrDefault();
                 var rentalDto = new RentalDto
                 {
                     RentalId = ++maxRentalId,
                     DateRented = DateTime.Now,
                     Customer = Mapper.Map<Customer, CustomerDto>(customer),
-                    
+
                     Movie = Mapper.Map<Movie, MovieDto>(movie)
                 };
                 var rental = Mapper.Map<RentalDto, Rental>(rentalDto);
 
                 rental.CustomerObjectId = rental.Customer.Id = customer.Id;
                 rental.MovieObjectId = rental.Movie.Id = movie.Id;
-   
+
                 _ctx.Rentals.InsertOne(rental);
             }
-
-
+ 
             return Ok();
         }
 
