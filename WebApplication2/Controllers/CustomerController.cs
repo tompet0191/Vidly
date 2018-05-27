@@ -93,7 +93,7 @@ namespace Vidly.Controllers
         [Route("Customers/Edit/{Id:int}")]
         public IActionResult Edit(int id)
         {
-            var customer = _ctx.Customers.Find(x => x.CustomerId == id).First();
+            var customer = _ctx.Customers.Find(x => x.CustomerId == id).FirstOrDefault();
 
             if (customer == null)
                 return NotFound();
